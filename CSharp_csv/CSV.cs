@@ -14,6 +14,7 @@ namespace CSharp_csv
 		private string[] _enTete;
 		private IDonnee[] _iDonnee;
 		private string _cheminSortie;
+		private char _separateur = ';';
 
 		public CSV(string[] enTete, IDonnee[] iDonnee, string cheminSortie)
         {
@@ -38,7 +39,7 @@ namespace CSharp_csv
 				_sb.Append(_enTete[i]);
 				if (i < longueurEntete - 1)
 				{
-					_sb.Append(';');
+					_sb.Append(_separateur);
 				}
 			}
 
@@ -56,20 +57,24 @@ namespace CSharp_csv
 			{
 				string[] valeurs = _iDonnee[i].ValeursCSV();
 
-				int nbreValeurs = valeurs.Length;
-				StringBuilder format = new ();
-				for (int j = 0; j < nbreValeurs; j++)
-				{
-					format.Append('{');
-					format.Append(j);
-					format.Append('}');
-					if (j < nbreValeurs - 1)
-					{
-						format.Append(';');
-					}
-				}
+				// v.1
+				//int nbreValeurs = valeurs.Length;
+				//StringBuilder format = new ();
+				//for (int j = 0; j < nbreValeurs; j++)
+				//{
+				//	format.Append('{');
+				//	format.Append(j);
+				//	format.Append('}');
+				//	if (j < nbreValeurs - 1)
+				//	{
+				//		format.Append(';');
+				//	}
+				//}
 
-				string ligne = string.Format(format.ToString(), valeurs);
+				//string ligne = string.Format(format.ToString(), valeurs);
+
+				// v.2
+				string ligne = string.Join(_separateur, valeurs);
 
 				_sb.Append(ligne);
 
